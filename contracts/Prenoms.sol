@@ -12,8 +12,12 @@ contract Prenoms is ERC721, ERC721URIStorage, Ownable {
 
     Counters.Counter private _tokenIdCounter;
 
-    constructor() ERC721("MyToken", "MTK") {
+    constructor() ERC721("Prenoms", "MTK") {
         console.log("Created the token contract.");
+    }
+
+    function _baseURI() internal pure override returns (string memory) {
+        return "ipfs://";
     }
 
     function safeMint(address to, string memory uri) public onlyOwner {
