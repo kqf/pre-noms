@@ -21,5 +21,8 @@ describe("Minter", function () {
     });
     expect(await prenoms.tokenURI(2)).to.equal("ipfs://Third token");
 
-  });
-});
+    await expect(prenoms.payToMint(owner.address, "Third token", {
+      value: ethers.utils.parseEther('0.05')
+    })).to.be.revertedWith('Already minted!');
+
+  });});
