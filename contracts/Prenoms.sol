@@ -11,6 +11,8 @@ contract Prenoms is ERC721, ERC721URIStorage, Ownable {
     using Counters for Counters.Counter;
 
     Counters.Counter private _tokenIdCounter;
+    mapping(string => bool) private existingURIs;
+
 
     constructor() ERC721("Prenoms", "MTK") {
         console.log("Created the token contract.");
@@ -43,5 +45,23 @@ contract Prenoms is ERC721, ERC721URIStorage, Ownable {
         returns (string memory)
     {
         return super.tokenURI(tokenId);
+    }
+
+    function payToMint(address to, string memory uri)
+        public
+        payable
+        returns (uint256)
+    {
+        require(!existingURIs[uri], "NFT already minted!");
+        require(msg.value >= 0.05 ether, "Need to pay up!");
+
+        uint256 newItemId = _tokenIdCounter.current();
+        _tokenIdCounter.increment();
+        existingURIs[uri] = true;
+
+        _mint(to, newItemId);
+        _setTokenURI(newItemId, uri);
+
+        return newItemId;
     }
 }
