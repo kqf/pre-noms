@@ -22,13 +22,6 @@ contract Prenoms is ERC721, ERC721URIStorage, Ownable {
         return "ipfs://";
     }
 
-    function safeMint(address to, string memory uri) public onlyOwner {
-        uint256 tokenId = _tokenIdCounter.current();
-        _tokenIdCounter.increment();
-        _safeMint(to, tokenId);
-        _setTokenURI(tokenId, uri);
-    }
-
     // The following functions are overrides required by Solidity.
 
     function _burn(uint256 tokenId)
@@ -52,16 +45,24 @@ contract Prenoms is ERC721, ERC721URIStorage, Ownable {
         payable
         returns (uint256)
     {
-        require(!existingURIs[uri], "NFT already minted!");
+        require(!existingURIs[uri], "Already minted!");
         require(msg.value >= 0.05 ether, "Need to pay up!");
 
-        uint256 newItemId = _tokenIdCounter.current();
+        uint256 tokenId = _tokenIdCounter.current();
         _tokenIdCounter.increment();
         existingURIs[uri] = true;
 
-        _mint(to, newItemId);
-        _setTokenURI(newItemId, uri);
+        _mint(to, tokenId);
+        _setTokenURI(tokenId, uri);
 
-        return newItemId;
+        return tokenId;
+    }
+
+    function donateMint(address to, string memory uri) public onlyOwner {
+        require(!existingURIs[uri], "Already minted!");
+        uint256 tokenId = _tokenIdCounter.current();
+        _tokenIdCounter.increment();
+        _safeMint(to, tokenId);
+        _setTokenURI(tokenId, uri);
     }
 }
