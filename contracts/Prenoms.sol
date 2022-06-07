@@ -13,7 +13,6 @@ contract Prenoms is ERC721, ERC721URIStorage, Ownable {
     Counters.Counter private _tokenIdCounter;
     mapping(string => bool) private existingURIs;
 
-
     constructor() ERC721("Prenoms", "MTK") {
         console.log("Created the token contract.");
     }
@@ -62,6 +61,8 @@ contract Prenoms is ERC721, ERC721URIStorage, Ownable {
         require(!existingURIs[uri], "Already minted!");
         uint256 tokenId = _tokenIdCounter.current();
         _tokenIdCounter.increment();
+        existingURIs[uri] = true;
+
         _safeMint(to, tokenId);
         _setTokenURI(tokenId, uri);
     }
