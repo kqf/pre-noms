@@ -15,5 +15,14 @@ describe("Minter", function () {
 
     await prenoms.donateMint(owner.address, "Second token");
     expect(await prenoms.tokenURI(1)).to.equal("ipfs://Second token");
-  });
-});
+
+    await prenoms.payToMint(owner.address, "Third token", {
+      value: ethers.utils.parseEther('0.05')
+    });
+    expect(await prenoms.tokenURI(2)).to.equal("ipfs://Third token");
+
+    await expect(prenoms.payToMint(owner.address, "Third token", {
+      value: ethers.utils.parseEther('0.05')
+    })).to.be.revertedWith('Already minted!');
+
+  });});
