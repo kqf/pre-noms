@@ -13,13 +13,20 @@ contract Prenoms is ERC721, ERC721URIStorage, Ownable {
     Counters.Counter private _tokenIdCounter;
     mapping(string => bool) private existingURIs;
 
-
     constructor() ERC721("Prenoms", "MTK") {
         console.log("Created the token contract.");
     }
 
     function _baseURI() internal pure override returns (string memory) {
         return "ipfs://";
+    }
+
+    function _registerToken(string memory uri) internal returns (uint256) {
+        require(!existingURIs[uri], "Already minted!");
+        uint256 tokenId = _tokenIdCounter.current();
+        _tokenIdCounter.increment();
+        existingURIs[uri] = true;
+        return tokenId;
     }
 
     // The following functions are overrides required by Solidity.
@@ -48,10 +55,7 @@ contract Prenoms is ERC721, ERC721URIStorage, Ownable {
         require(!existingURIs[uri], "Already minted!");
         require(msg.value >= 0.05 ether, "Need to pay up!");
 
-        uint256 tokenId = _tokenIdCounter.current();
-        _tokenIdCounter.increment();
-        existingURIs[uri] = true;
-
+        uint256 tokenId = _registerToken(uri);
         _mint(to, tokenId);
         _setTokenURI(tokenId, uri);
 
@@ -60,8 +64,8 @@ contract Prenoms is ERC721, ERC721URIStorage, Ownable {
 
     function donateMint(address to, string memory uri) public onlyOwner {
         require(!existingURIs[uri], "Already minted!");
-        uint256 tokenId = _tokenIdCounter.current();
-        _tokenIdCounter.increment();
+        uint256 tokenId = _registerToken(uri);
+
         _safeMint(to, tokenId);
         _setTokenURI(tokenId, uri);
     }
