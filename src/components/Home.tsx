@@ -1,4 +1,22 @@
-function Entry(props: { tokenId: number, getCount: () => Promise<void> }) {
+import WalletBalance from './Ballance';
+import { useEffect, useState } from 'react';
+
+import { ethers } from 'ethers';
+
+// @ts-ignore
+import Prenoms from '../artifacts/contracts/Prenoms.sol/Prenonms.json';
+
+const contractAddress = 'YOUR_DEPLOYED_CONTRACT_ADDRESS';
+
+const provider = new ethers.providers.Web3Provider(window.ethereum as any);
+
+// get the end user
+const signer = provider.getSigner();
+
+// get the smart contract
+const contract = new ethers.Contract(contractAddress, Prenoms.abi, signer);
+
+function Entry(props: { tokenId: number, getCount: () => Promise<void>}){
   return <div></div>
 }
 
