@@ -1,4 +1,4 @@
-function Entry() {
+function Entry(props: { tokenId: number, getCount: () => Promise<void> }) {
   return <div></div>
 }
 
