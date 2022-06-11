@@ -14,7 +14,7 @@ const signer = provider.getSigner();
 // get the smart contract
 const contract = new ethers.Contract(contractAddress, Prenoms.abi, signer);
 
-function Entry(props: { tokenId: number, getCount: () => Promise<void>}){
+function Entry(props: { tokenId: number, getCount: () => Promise<void> }) {
   return <div></div>
 }
 
@@ -50,3 +50,5 @@ function Home() {
     </div>
   );
 }
+
+export default Home;
