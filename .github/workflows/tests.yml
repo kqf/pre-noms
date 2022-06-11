@@ -20,6 +20,7 @@ jobs:
         node-version: 16.x
         cache: 'npm'
     - run: npm ci
+    - run: npx hardhat compile
     - run: npm run build --if-present
     - run: npx hardhat test
     - run: npx hardhat coverage
