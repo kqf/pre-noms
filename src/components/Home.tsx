@@ -2,9 +2,7 @@ import WalletBalance from './Ballance';
 import { useEffect, useState } from 'react';
 
 import { ethers } from 'ethers';
-
-// @ts-ignore
-import Prenoms from '../artifacts/contracts/Prenoms.sol/Prenonms.json';
+import Prenoms from '../artifacts/contracts/Prenoms.sol/Prenoms.json';
 
 const contractAddress = 'YOUR_DEPLOYED_CONTRACT_ADDRESS';
 
