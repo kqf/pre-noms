@@ -33,9 +33,9 @@ function Home() {
 
   return (
     <div>
-      <div className="container">
+      <div className="container text-center">
         <WalletBalance />
-        <h1 className="container">This is a text</h1>
+        <h1 className="container text-center">This is a text</h1>
       </div>
 
       <div className="container">
