@@ -15,7 +15,29 @@ const signer = provider.getSigner();
 const contract = new ethers.Contract(contractAddress, Prenoms.abi, signer);
 
 function Entry(props: { tokenId: number, getCount: () => Promise<void> }) {
-  return <div></div>
+  const isMinted = true;
+  const tokenId = 1;
+  const imageURI = "src/logo.svg";
+  const mintToken = () => { };
+  const getURI = () => { };
+
+  return (
+    <div className="card" style={{ width: '18rem' }}>
+      <img className="card-img-top" src={isMinted ? imageURI : 'src/logo.svg'}></img>
+      <div className="card-body">
+        <h5 className="card-title">ID #{tokenId}</h5>
+        {!isMinted ? (
+          <button className="btn btn-primary" onClick={mintToken}>
+            Mint
+          </button>
+        ) : (
+          <button className="btn btn-secondary" onClick={getURI}>
+            Taken! Show URI
+          </button>
+        )}
+      </div>
+    </div>
+  );
 }
 
 function Home() {
