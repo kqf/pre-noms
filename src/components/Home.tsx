@@ -15,9 +15,11 @@ const signer = provider.getSigner();
 const contract = new ethers.Contract(contractAddress, Prenoms.abi, signer);
 
 function Entry(props: { tokenId: number, getCount: () => Promise<void> }) {
-  const  isMinted = 10;
+  const isMinted = true;
   const tokenId = 1;
   const imageURI = "src/logo.svg";
+  const mintToken = () => { };
+  const getURI = () => { };
 
   return (
     <div className="card" style={{ width: '18rem' }}>
