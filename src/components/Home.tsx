@@ -33,9 +33,11 @@ function Home() {
 
   return (
     <div>
-      <WalletBalance />
+      <div className="container">
+        <WalletBalance />
+        <h1 className="container">This is a text</h1>
+      </div>
 
-      <h1>This is a text</h1>
       <div className="container">
         <div className="row">
           {Array(totalMinted + 1)
