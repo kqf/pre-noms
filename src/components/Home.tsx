@@ -19,7 +19,11 @@ function Entry(props: { tokenId: number, getCount: () => Promise<void> }) {
   const tokenId = 1;
   const imageURI = "src/logo.svg";
   const mintToken = () => { };
-  const getURI = () => { };
+
+  async function getURI() {
+    const uri = await contract.tokenURI(tokenId);
+    alert(uri);
+  }
 
   return (
     <div className="card" style={{ width: '18rem' }}>
