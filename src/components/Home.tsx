@@ -22,6 +22,12 @@ function Entry(props: { tokenId: number, getCount: () => Promise<void> }) {
 
   const [isMinted, setIsMinted] = useState(false);
 
+  const getMintedStatus = async () => {
+    const result = await contract.isContentOwned(metadataURI);
+    console.log(result)
+    setIsMinted(result);
+  };
+
   async function getURI() {
     const uri = await contract.tokenURI(props.tokenId);
     alert(uri);
