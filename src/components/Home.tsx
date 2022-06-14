@@ -15,9 +15,18 @@ const signer = provider.getSigner();
 const contract = new ethers.Contract(contractAddress, Prenoms.abi, signer);
 
 function Entry(props: { tokenId: number, getCount: () => Promise<void> }) {
-  const isMinted = true;
   const imageURI = "src/logo.svg";
+  const contentId = 'link';
+  const metadataURI = `${contentId}/${props.tokenId}.json`;
   const mintToken = () => { };
+
+  const [isMinted, setIsMinted] = useState(false);
+
+  const getMintedStatus = async () => {
+    const result = await contract.isContentOwned(metadataURI);
+    console.log(result)
+    setIsMinted(result);
+  };
 
   async function getURI() {
     const uri = await contract.tokenURI(props.tokenId);
