@@ -1,7 +1,9 @@
-import { ethers } from 'ethers';
+import { TransactionResponse } from "@ethersproject/abstract-provider";
+import { Contract, ethers } from 'ethers';
 import { useEffect, useState } from 'react';
 import Prenoms from '../artifacts/contracts/Prenoms.sol/Prenoms.json';
 import WalletBalance from './Ballance';
+
 
 
 const contractAddress = 'YOUR_DEPLOYED_CONTRACT_ADDRESS';
@@ -21,9 +23,9 @@ function Entry(props: { tokenId: number, getCount: () => Promise<void> }) {
   const [isMinted, setIsMinted] = useState(false);
 
   const mintToken = async () => {
-    const connection = contract.connect(signer);
-    const addr = connection.address;
-    const result = await contract.payToMint(addr, metadataURI, {
+    const connection: Contract = contract.connect(signer);
+    const addr: string = connection.address;
+    const result: TransactionResponse = await contract.payToMint(addr, metadataURI, {
       value: ethers.utils.parseEther('0.05'),
     });
 
