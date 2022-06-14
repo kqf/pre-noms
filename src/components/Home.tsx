@@ -18,9 +18,19 @@ function Entry(props: { tokenId: number, getCount: () => Promise<void> }) {
   const imageURI = "src/logo.svg";
   const contentId = 'link';
   const metadataURI = `${contentId}/${props.tokenId}.json`;
-  const mintToken = () => { };
-
   const [isMinted, setIsMinted] = useState(false);
+
+  const mintToken = async () => {
+    const connection = contract.connect(signer);
+    const addr = connection.address;
+    const result = await contract.payToMint(addr, metadataURI, {
+      value: ethers.utils.parseEther('0.05'),
+    });
+
+    await result.wait();
+    getMintedStatus();
+    props.getCount();
+  };
 
   const getMintedStatus = async () => {
     const result = await contract.isContentOwned(metadataURI);
