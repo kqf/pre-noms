@@ -6,7 +6,10 @@ import WalletBalance from './Ballance';
 
 
 
-const contractAddress = 'YOUR_DEPLOYED_CONTRACT_ADDRESS';
+console.log("Fetch env")
+const contractAddress: string = import.meta.env.CONTRACT_ADDRESS;
+console.log("Contract address")
+console.log(contractAddress)
 
 const provider = new ethers.providers.Web3Provider(window.ethereum as any);
 
