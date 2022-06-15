@@ -72,10 +72,14 @@ function Home() {
   }, []);
 
   const getCount = async () => {
-    const countRaw: number = parseInt(await contract.count);
+    const raw:string = await contract.count
+    const countRaw: number = parseInt(await contract.totalSupply());
 
     const count: number = isNaN(countRaw) ? 0 : countRaw;
+    console.log(`Minted before ${totalMinted}`)
     setTotalMinted(count);
+    console.log(`Minted after ${raw}`)
+    console.log(`Minted after ${totalMinted}`)
   };
 
   return (
