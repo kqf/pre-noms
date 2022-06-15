@@ -73,9 +73,9 @@ function Home() {
   }, []);
 
   const getCount = async () => {
-    const count = await contract.count();
-    console.log(parseInt(count));
-    setTotalMinted(parseInt(count));
+    const countRaw : number = parseInt(await contract.count);
+    const count: number = isNaN(countRaw) ? 0 : countRaw;
+    setTotalMinted(count);
   };
 
   return (
