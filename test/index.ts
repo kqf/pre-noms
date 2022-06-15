@@ -25,4 +25,8 @@ describe("Minter", function () {
       value: ethers.utils.parseEther('0.05')
     })).to.be.revertedWith('Already minted!');
 
-  });});
+    // We have created exactly 3 tokens so far
+    expect(await prenoms.totalSupply()).to.equal(3)
+
+  });
+});
