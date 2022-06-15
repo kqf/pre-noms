@@ -73,4 +73,8 @@ contract Prenoms is ERC721, ERC721URIStorage, Ownable {
         _safeMint(to, tokenId);
         _setTokenURI(tokenId, uri);
     }
+
+    function totalSupply() public view virtual returns (uint256) {
+        return _tokenIdCounter.current();
+    }
 }
