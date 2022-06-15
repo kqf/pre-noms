@@ -6,18 +6,15 @@ import WalletBalance from './Ballance';
 
 
 
-console.log("Fetch env")
-const contractAddress: string = import.meta.env.CONTRACT_ADDRESS;
-console.log("Contract address")
-console.log(contractAddress)
-
 const provider = new ethers.providers.Web3Provider(window.ethereum as any);
 
 // get the end user
 const signer = provider.getSigner();
 
 // get the smart contract
-const contract = new ethers.Contract(contractAddress, Prenoms.abi, signer);
+const contract = new ethers.Contract(
+  import.meta.env.VITE_CONTRACT_ADDRESS, Prenoms.abi, signer
+);
 
 function Entry(props: { tokenId: number, getCount: () => Promise<void> }) {
   const imageURI = "src/logo.svg";
@@ -76,7 +73,7 @@ function Home() {
   }, []);
 
   const getCount = async () => {
-    const countRaw : number = parseInt(await contract.count);
+    const countRaw: number = parseInt(await contract.count);
     const count: number = isNaN(countRaw) ? 0 : countRaw;
     setTotalMinted(count);
   };

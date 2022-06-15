@@ -10,7 +10,7 @@ declare global {
 
 interface ImportMetaEnv {
   readonly VITE_APP_TITLE: string
-  readonly CONTRACT_ADDRESS: string
+  readonly VITE_CONTRACT_ADDRESS: string
 }
 
 interface ImportMeta {
