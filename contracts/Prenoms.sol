@@ -67,7 +67,7 @@ contract Prenoms is ERC721, ERC721URIStorage, Ownable {
     }
 
     function donateMint(address to, string memory uri) public onlyOwner {
-        require(!existingURIs[uri], "Already minted!");
+        require(!isOwned(uri), "Already minted!");
         uint256 tokenId = _registerToken(uri);
 
         _safeMint(to, tokenId);
