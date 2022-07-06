@@ -4,9 +4,10 @@ import { createStore } from 'redux'
 
 function debugReducer(state = [], action: any) {
     console.log(action.payload)
+    return state;
 }
 
-export const buildStore: () => Store = () => createStore(debugReduce);
+export const buildStore: () => Store = () => createStore(debugReducer);
 
 
 const store: Store = buildStore()
