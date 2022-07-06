@@ -1,10 +1,12 @@
-import { combineReducers, configureStore, Store } from "@reduxjs/toolkit";
+import { Store } from "@reduxjs/toolkit";
+import { createStore } from 'redux'
 
-function debugReducer(state = [], action) {
+
+function debugReducer(state = [], action: any) {
     console.log(action.payload)
 }
 
-export const buildStore: () => Store = () => configureStore(debugReducer, []);
+export const buildStore: () => Store = () => createStore(debugReduce);
 
 
 const store: Store = buildStore()
