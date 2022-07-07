@@ -1,13 +1,20 @@
-import { Store } from "@reduxjs/toolkit";
-import { createStore } from 'redux'
+import { configureStore, createSlice, Store, PayloadAction } from "@reduxjs/toolkit";
 
+const defaults = createSlice({
+    name: "defaults",
+    initialState: [],
+    reducers: {
+        createVendor(
+            defaults: Array<any>,
+            action: PayloadAction<any>
+        ) {
+        },
+    }
+    })
 
-function debugReducer(state = [], action: any) {
-    console.log(action.payload)
-    return state;
-}
-
-export const buildStore: () => Store = () => createStore(debugReducer);
+export const buildStore: () => Store = () => configureStore({
+    reducer: defaults.reducer
+});
 
 
 const store: Store = buildStore()
