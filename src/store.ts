@@ -18,11 +18,12 @@ export const buildStore: () => Store = () => configureStore({
     reducer: defaults.reducer
 });
 
-export const fetchTokens = (client: any) => {
-    createAsyncThunk('posts/fetchPosts', async () => {
-        const response = await client.totalSupply();
-        return response.data
-    })
+export const fetchTokens = (contract: any) => {
+    return createAsyncThunk('tokens/fetchTotalSupply', async () => {
+        const countRaw: number = parseInt(await contract.totalSupply());
+        const count: number = isNaN(countRaw) ? 0 : countRaw;
+        return {count}
+    });
 }
 
 const store: Store = buildStore()
