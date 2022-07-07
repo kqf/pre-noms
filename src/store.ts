@@ -4,13 +4,14 @@ const defaults = createSlice({
     name: "defaults",
     initialState: [],
     reducers: {
-        createVendor(
+        dataFetched(
             defaults: Array<any>,
             action: PayloadAction<any>
         ) {
+            console.log(action.payload)
         },
     }
-    })
+})
 
 export const buildStore: () => Store = () => configureStore({
     reducer: defaults.reducer
@@ -19,4 +20,5 @@ export const buildStore: () => Store = () => configureStore({
 
 const store: Store = buildStore()
 export type RootState = ReturnType<typeof store.getState>;
+export const { dataFetched } = defaults.actions;
 export default store;
