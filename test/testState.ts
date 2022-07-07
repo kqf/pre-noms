@@ -1,8 +1,9 @@
-import { buildStore } from "../src/store"
+import { buildStore, dataFetched } from "../src/store"
 
 describe("Check the store logic", function () {
-    it("Should mint a token with a given URI", async function () {
+    it("Interact with the store", async function () {
         const store = buildStore()
+        store.dispatch(dataFetched("this are the data"))
         console.log("Done");
     });
 });
