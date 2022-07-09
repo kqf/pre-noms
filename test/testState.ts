@@ -12,8 +12,9 @@ describe("Check the store logic", function () {
 
         const store = buildStore()
         store.dispatch(dataFetched("this are the data"))
-        // @ts-ignore
         store.dispatch(fetchTokens(prenoms));
         console.log("Done");
+
+        // @ts-ignore
     });
 });
