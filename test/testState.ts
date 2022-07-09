@@ -1,5 +1,5 @@
 import { ethers } from "hardhat";
-import { buildStore, dataFetched, fetchTokens } from "../src/store"
+import { buildStore, dataFetched, fetchTokens } from "../src/store/store"
 
 
 describe("Check the store logic", function () {
@@ -12,9 +12,9 @@ describe("Check the store logic", function () {
 
         const store = buildStore()
         store.dispatch(dataFetched("this are the data"))
+        // @ts-ignore
         store.dispatch(fetchTokens(prenoms));
         console.log("Done");
 
-        // @ts-ignore
     });
 });

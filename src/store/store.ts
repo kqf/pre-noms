@@ -19,10 +19,10 @@ export const buildStore: () => Store = () => configureStore({
 });
 
 export const fetchTokens = (contract: any) => {
-    return createAsyncThunk('tokens/fetchTotalSupply', async () => {
+    return createAsyncThunk<{count: number}>('tokens/fetchTotalSupply', async () => {
         const countRaw: number = parseInt(await contract.totalSupply());
         const count: number = isNaN(countRaw) ? 0 : countRaw;
-        return count
+        return {count: count}
     });
 }
 
