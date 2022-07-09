@@ -1,4 +1,4 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 
 export interface Token {
@@ -7,18 +7,13 @@ export interface Token {
     isOwned: boolean,
 }
 
-interface Action<T> {
-    type: string,
-    payload: T
-}
-
 const slice = createSlice({
     name: "orders",
     initialState: [] as Array<Token>,
     reducers: {
         addedToken: (
             orders: Array<Token>,
-            action: Action<{ description: string }>
+            action: PayloadAction<{ description: string }>
         ) => {
             console.log("Do nothing")
         },

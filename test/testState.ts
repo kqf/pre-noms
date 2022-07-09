@@ -15,6 +15,5 @@ describe("Check the store logic", function () {
         // @ts-ignore
         store.dispatch(fetchTokens(prenoms));
         console.log("Done");
-
     });
 });

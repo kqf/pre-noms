@@ -9,7 +9,7 @@ const defaults = createSlice({
             defaults: Array<any>,
             action: PayloadAction<any>
         ) {
-            console.log(action.payload)
+            console.log("Received the payload >>", action.payload)
         },
     }
 })
