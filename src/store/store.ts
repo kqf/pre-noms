@@ -1,21 +1,9 @@
 import { configureStore, createSlice, Store, PayloadAction } from "@reduxjs/toolkit";
 import { createAsyncThunk } from "@reduxjs/toolkit";
-
-const defaults = createSlice({
-    name: "defaults",
-    initialState: [],
-    reducers: {
-        dataFetched(
-            defaults: Array<any>,
-            action: PayloadAction<any>
-        ) {
-            console.log("Received the payload >>", action.payload)
-        },
-    }
-})
+import tokenReducer from "./tokens"
 
 export const buildStore: () => Store = () => configureStore({
-    reducer: defaults.reducer
+    reducer: tokenReducer
 });
 
 export const fetchTokens = (contract: any) => {
@@ -28,5 +16,4 @@ export const fetchTokens = (contract: any) => {
 
 const store: Store = buildStore()
 export type RootState = ReturnType<typeof store.getState>;
-export const { dataFetched } = defaults.actions;
 export default store;
