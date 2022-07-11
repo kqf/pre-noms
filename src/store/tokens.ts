@@ -17,7 +17,14 @@ const slice = createSlice({
         ) => {
             console.log("Do nothing")
         },
+        totalCountChanged: (
+            orders: Array<Token>,
+            action: PayloadAction<Token>
+        ) => {
+            console.log("Fetching data")
+        }
     }
 });
 
+export const {addedToken, totalCountChanged} = slice.actions;
 export default slice.reducer;
