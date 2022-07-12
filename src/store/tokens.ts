@@ -1,4 +1,4 @@
-import { createSlice, PayloadAction, createAsyncThunk } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 
 
@@ -28,11 +28,11 @@ const slice = createSlice({
 });
 
 export const fetchAllTokens = (contract: any) => {
-    return createAsyncThunk<{count: number}>('tokens/fetchTotalSupply', async () => {
+    return createAsyncThunk<{ count: number }>('tokens/fetchTotalSupply', async () => {
         const countRaw: number = parseInt(await contract.totalSupply());
         const count: number = isNaN(countRaw) ? 0 : countRaw;
-        return {count: count}
+        return { count: count }
     });
 }
-export const {addedToken, totalCountChanged} = slice.actions;
+export const { addedToken, totalCountChanged } = slice.actions;
 export default slice.reducer;

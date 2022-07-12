@@ -1,6 +1,6 @@
 import { ethers } from "hardhat";
-import { buildStore, fetchAllTokens } from "../src/store/store"
-import { totalCountChanged } from "../src/store/tokens"
+import { buildStore } from "../src/store/store"
+import { totalCountChanged, fetchAllTokens } from "../src/store/tokens"
 
 
 describe("Check the store logic", function () {
