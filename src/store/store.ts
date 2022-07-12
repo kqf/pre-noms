@@ -6,7 +6,7 @@ export const buildStore: () => Store = () => configureStore({
     reducer: tokenReducer
 });
 
-export const fetchTokens = (contract: any) => {
+export const fetchAllTokens = (contract: any) => {
     return createAsyncThunk<{count: number}>('tokens/fetchTotalSupply', async () => {
         const countRaw: number = parseInt(await contract.totalSupply());
         const count: number = isNaN(countRaw) ? 0 : countRaw;
