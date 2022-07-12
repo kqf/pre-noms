@@ -19,7 +19,7 @@ const slice = createSlice({
         },
         totalCountChanged: (
             orders: Array<Token>,
-            action: PayloadAction<Token>
+            action: PayloadAction<string>
         ) => {
             console.log("Fetching data")
         }
