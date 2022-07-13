@@ -34,10 +34,25 @@ const totalSupply = async (contract: Contract) => {
     return count
 }
 
-export const fetchAllTokens = (contract: any) => {
-    return createAsyncThunk<{ count: number }>('tokens/fetchTotalSupply', async () => {
+export const fetchAllTokens = (contract: Contract) => {
+    return createAsyncThunk<Array<Token>>('tokens/fetchTotalSupply', async () => {
         const count: number = await totalSupply(contract);
-        return { count: count }
+        var tokens = Array<Token>();
+        for (let i = 0; i < count; i++) {
+            const uri: string = await contract.tokenURI(i);
+            const isOwned: boolean = await contract.isOwned(uri);
+
+            if(!isOwned)
+                continue;
+
+            tokens.push({
+                id: i,
+                url: uri,
+                isOwned: isOwned,
+            });
+        }
+
+        return tokens;
     });
 }
 export const { addedToken, totalCountChanged } = slice.actions;
