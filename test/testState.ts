@@ -9,10 +9,7 @@ describe("Check the store logic", function () {
         const Prenoms = await ethers.getContractFactory("Prenoms");
         const prenoms = await Prenoms.deploy();
         await prenoms.deployed();
-
-
         const store = buildStore()
-        store.dispatch(totalCountChanged("this are the data"))
         // @ts-ignore
         store.dispatch(fetchAllTokens(prenoms));
         console.log("Done");
