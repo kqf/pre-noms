@@ -11,7 +11,7 @@ describe("Check the store logic", function () {
         await prenoms.deployed();
         const store = buildStore()
         // @ts-ignore
-        store.dispatch(fetchAllTokens(prenoms));
+        await store.dispatch(fetchAllTokens(prenoms));
         console.log("Done");
     });
 });

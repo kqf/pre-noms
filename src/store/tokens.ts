@@ -24,7 +24,15 @@ const slice = createSlice({
             action: PayloadAction<Array<Token>>
         ) => {
             console.log("Fetching data")
-        }
+        },
+    },
+    extraReducers(builder) {
+        builder.addCase(fetchAllTokens.fulfilled, (
+            orders: Array<Token>,
+            action: PayloadAction<Array<Token>>
+        ) => {
+            console.log("Fetching data")
+        });
     }
 });
 
