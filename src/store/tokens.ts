@@ -24,7 +24,15 @@ const slice = createSlice({
             action: PayloadAction<Array<Token>>
         ) => {
             console.log("Fetching data")
-        }
+        },
+    },
+    extraReducers(builder) {
+        builder.addCase(fetchAllTokens.fulfilled, (
+            orders: Array<Token>,
+            action: PayloadAction<Array<Token>>
+        ) => {
+            console.log("Fetching data")
+        });
     }
 });
 
@@ -34,15 +42,16 @@ const totalSupply = async (contract: Contract) => {
     return count
 }
 
-export const fetchAllTokens = (contract: Contract) => {
-    return createAsyncThunk<Array<Token>>('tokens/fetchTotalSupply', async () => {
+export const fetchAllTokens = createAsyncThunk<Array<Token>, Contract>(
+    'tokens/fetchTotalSupply',
+    async (contract: Contract) => {
         const count: number = await totalSupply(contract);
         var tokens = Array<Token>();
         for (let i = 0; i < count; i++) {
             const uri: string = await contract.tokenURI(i);
             const isOwned: boolean = await contract.isOwned(uri);
 
-            if(!isOwned)
+            if (!isOwned)
                 continue;
 
             tokens.push({
@@ -54,6 +63,6 @@ export const fetchAllTokens = (contract: Contract) => {
 
         return tokens;
     });
-}
+
 export const { addedToken, totalCountChanged } = slice.actions;
 export default slice.reducer;

@@ -1,6 +1,6 @@
 import { ethers } from "hardhat";
-import { buildStore } from "../src/store/store"
-import { totalCountChanged, fetchAllTokens } from "../src/store/tokens"
+import { buildStore } from "../src/store/store";
+import { fetchAllTokens } from "../src/store/tokens";
 
 
 describe("Check the store logic", function () {
@@ -11,7 +11,7 @@ describe("Check the store logic", function () {
         await prenoms.deployed();
         const store = buildStore()
         // @ts-ignore
-        store.dispatch(fetchAllTokens(prenoms));
+        await store.dispatch(fetchAllTokens(prenoms));
         console.log("Done");
     });
 });
