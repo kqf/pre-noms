@@ -72,7 +72,7 @@ function Home() {
   }, []);
 
   const getCount = async () => {
-    const raw:string = await contract.count
+    const raw: string = await contract.count
     const countRaw: number = parseInt(await contract.totalSupply());
 
     const count: number = isNaN(countRaw) ? 0 : countRaw;

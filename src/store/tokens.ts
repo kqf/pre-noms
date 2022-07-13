@@ -1,4 +1,5 @@
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { Contract } from "ethers";
 
 
 
@@ -27,10 +28,15 @@ const slice = createSlice({
     }
 });
 
+const totalSupply = async (contract: Contract) => {
+    const countRaw: number = parseInt(await contract.totalSupply());
+    const count: number = isNaN(countRaw) ? 0 : countRaw;
+    return count
+}
+
 export const fetchAllTokens = (contract: any) => {
     return createAsyncThunk<{ count: number }>('tokens/fetchTotalSupply', async () => {
-        const countRaw: number = parseInt(await contract.totalSupply());
-        const count: number = isNaN(countRaw) ? 0 : countRaw;
+        const count: number = await totalSupply(contract);
         return { count: count }
     });
 }
