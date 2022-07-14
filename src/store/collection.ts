@@ -25,13 +25,13 @@ const slice = createSlice({
     } as CollectionSlice,
     reducers: {
         addedToken: (
-            orders: CollectionSlice,
+            collection: CollectionSlice,
             action: PayloadAction<{ description: string }>
         ) => {
             console.log("Do nothing")
         },
         totalCountChanged: (
-            orders: CollectionSlice,
+            collection: CollectionSlice,
             action: PayloadAction<CollectionSlice>
         ) => {
             console.log("Fetching data")
@@ -39,7 +39,7 @@ const slice = createSlice({
     },
     extraReducers(builder) {
         builder.addCase(fetchAllTokens.fulfilled, (
-            orders: CollectionSlice,
+            collection: CollectionSlice,
             action: PayloadAction<CollectionSlice>
         ) => {
             console.log("Fetching data >>>>")
