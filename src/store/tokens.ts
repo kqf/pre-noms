@@ -9,8 +9,15 @@ export interface Token {
     isOwned: boolean,
 }
 
+
+interface CollectionSlice {
+    tokens: Array<Token>,
+    lastId: number,
+    totalSupply: number,
+}
+
 const slice = createSlice({
-    name: "orders",
+    name: "collection",
     initialState: [] as Array<Token>,
     reducers: {
         addedToken: (
