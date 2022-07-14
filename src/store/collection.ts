@@ -10,7 +10,7 @@ export interface Token {
 }
 
 
-interface CollectionSlice {
+interface Collection {
     tokens: Array<Token>,
     lastId: number,
     totalSupply: number,
@@ -22,25 +22,25 @@ const slice = createSlice({
         tokens: [],
         lastId: 0,
         totalSupply: 0,
-    } as CollectionSlice,
+    } as Collection,
     reducers: {
         addedToken: (
-            collection: CollectionSlice,
+            collection: Collection,
             action: PayloadAction<{ description: string }>
         ) => {
             console.log("Do nothing")
         },
         totalCountChanged: (
-            collection: CollectionSlice,
-            action: PayloadAction<CollectionSlice>
+            collection: Collection,
+            action: PayloadAction<Collection>
         ) => {
             console.log("Fetching data")
         },
     },
     extraReducers(builder) {
         builder.addCase(fetchAllTokens.fulfilled, (
-            collection: CollectionSlice,
-            action: PayloadAction<CollectionSlice>
+            collection: Collection,
+            action: PayloadAction<Collection>
         ) => {
             console.log("Fetching data >>>>")
             return action.payload;
@@ -54,7 +54,7 @@ const totalSupply = async (contract: Contract) => {
     return count
 }
 
-export const fetchAllTokens = createAsyncThunk<CollectionSlice, Contract>(
+export const fetchAllTokens = createAsyncThunk<Collection, Contract>(
     'tokens/fetchTotalSupply',
     async (contract: Contract) => {
         const count: number = await totalSupply(contract);
