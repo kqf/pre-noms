@@ -9,27 +9,38 @@ export interface Token {
     isOwned: boolean,
 }
 
+
+interface CollectionSlice {
+    tokens: Array<Token>,
+    lastId: number,
+    totalSupply: number,
+}
+
 const slice = createSlice({
-    name: "orders",
-    initialState: [] as Array<Token>,
+    name: "collection",
+    initialState: {
+        tokens: [],
+        lastId: 0,
+        totalSupply: 0,
+    } as CollectionSlice,
     reducers: {
         addedToken: (
-            orders: Array<Token>,
+            orders: CollectionSlice,
             action: PayloadAction<{ description: string }>
         ) => {
             console.log("Do nothing")
         },
         totalCountChanged: (
-            orders: Array<Token>,
-            action: PayloadAction<Array<Token>>
+            orders: CollectionSlice,
+            action: PayloadAction<CollectionSlice>
         ) => {
             console.log("Fetching data")
         },
     },
     extraReducers(builder) {
         builder.addCase(fetchAllTokens.fulfilled, (
-            orders: Array<Token>,
-            action: PayloadAction<Array<Token>>
+            orders: CollectionSlice,
+            action: PayloadAction<CollectionSlice>
         ) => {
             console.log("Fetching data >>>>")
             return action.payload;
@@ -43,7 +54,7 @@ const totalSupply = async (contract: Contract) => {
     return count
 }
 
-export const fetchAllTokens = createAsyncThunk<Array<Token>, Contract>(
+export const fetchAllTokens = createAsyncThunk<CollectionSlice, Contract>(
     'tokens/fetchTotalSupply',
     async (contract: Contract) => {
         const count: number = await totalSupply(contract);
@@ -62,7 +73,8 @@ export const fetchAllTokens = createAsyncThunk<Array<Token>, Contract>(
             });
         }
 
-        return tokens;
+        const lastId = Math.max(...tokens.map(x => x.id));
+        return {tokens, lastId, totalSupply: count};
     });
 
 export const { addedToken, totalCountChanged } = slice.actions;
