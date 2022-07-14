@@ -31,7 +31,8 @@ const slice = createSlice({
             orders: Array<Token>,
             action: PayloadAction<Array<Token>>
         ) => {
-            console.log("Fetching data")
+            console.log("Fetching data >>>>")
+            return action.payload;
         });
     }
 });
