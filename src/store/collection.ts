@@ -81,14 +81,14 @@ export const fetchAllTokens = createAsyncThunk<Collection, Contract>(
 
 export const mintToken = createAsyncThunk<Token, { contract: Contract, signer: Signer }, RootState>(
     'tokens/mintToken',
-    async (data: {contract: Contract, signer: Signer}, state: RootState) => {
+    async (credentials: {contract: Contract, signer: Signer}, state: RootState) => {
         const id: number = state.collection.lastId + 1;
-        const url = contract.tokenURI(id);
+        const url = credentials.contract.tokenURI(id);
         const contentId = 'link';
         const metadataURI = `${contentId}/${id}.json`;
-        const connection: Contract = data.contract.connect(data.signer);
+        const connection: Contract = credentials.contract.connect(credentials.signer);
         const addr: string = connection.address;
-        const result: TransactionResponse = await contract.payToMint(addr, metadataURI, {
+        const result: TransactionResponse = await credentials.contract.payToMint(addr, metadataURI, {
           value: ethers.utils.parseEther('0.05'),
         });
         await result.wait();
