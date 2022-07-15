@@ -79,7 +79,7 @@ export const fetchAllTokens = createAsyncThunk<Collection, Contract>(
 
 export const collectionComplete = createSelector(
     (state: any): Collection => { return state.collection; },
-    (collection: Collection): boolean => true
+    (collection: Collection): boolean => collection.lastId >= collection.totalSupply
 )
 
 export const { addedToken, totalCountChanged } = slice.actions;
