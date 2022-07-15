@@ -74,8 +74,13 @@ export const fetchAllTokens = createAsyncThunk<Collection, Contract>(
         }
 
         const lastId = Math.max(...tokens.map(x => x.id));
-        return {tokens, lastId, totalSupply: count};
+        return { tokens, lastId, totalSupply: count };
     });
+
+export const collectionComplete(
+    (state: any): Collection => { return state.collection; },
+    (collection: Collection): boolean => true
+)
 
 export const { addedToken, totalCountChanged } = slice.actions;
 export default slice.reducer;
