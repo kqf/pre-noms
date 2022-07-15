@@ -1,6 +1,7 @@
 import { TransactionResponse } from "@ethersproject/abstract-provider";
 import { createAsyncThunk, createSelector, createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { Contract, Signer, ethers } from "ethers";
+import { Contract, ethers, Signer } from "ethers";
+import { RootState } from "./store";
 
 
 
@@ -78,17 +79,26 @@ export const fetchAllTokens = createAsyncThunk<Collection, Contract>(
         return { tokens, lastId, totalSupply: count };
     });
 
-export const mintToken = createAsyncThunk<Action, Contract, Signer>(
+export const mintToken = createAsyncThunk<Token, { contract: Contract, signer: Signer }, RootState>(
     'tokens/mintToken',
-    async (contract:Contract, signer: Signer) => {
-    const connection: Contract = contract.connect(signer);
-    const addr: string = connection.address;
-    const result: TransactionResponse = await contract.payToMint(addr, metadataURI, {
-      value: ethers.utils.parseEther('0.05'),
-    });
-    await result.wait();
+    async (data: {contract: Contract, signer: Signer}, state: RootState) => {
+        const id: number = state.collection.lastId + 1;
+        const url = contract.tokenURI(id);
+        const contentId = 'link';
+        const metadataURI = `${contentId}/${id}.json`;
+        const connection: Contract = data.contract.connect(data.signer);
+        const addr: string = connection.address;
+        const result: TransactionResponse = await contract.payToMint(addr, metadataURI, {
+          value: ethers.utils.parseEther('0.05'),
+        });
+        await result.wait();
 
-});
+        return {
+            id,
+            url: url,
+            isOwned: true,
+        } as Token;
+    });
 
 
 export const collectionComplete = createSelector(
