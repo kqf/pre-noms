@@ -1,4 +1,4 @@
-import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSelector, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { Contract } from "ethers";
 
 
@@ -77,7 +77,7 @@ export const fetchAllTokens = createAsyncThunk<Collection, Contract>(
         return { tokens, lastId, totalSupply: count };
     });
 
-export const collectionComplete(
+export const collectionComplete = createSelector(
     (state: any): Collection => { return state.collection; },
     (collection: Collection): boolean => true
 )
