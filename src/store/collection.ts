@@ -1,5 +1,6 @@
+import { TransactionResponse } from "@ethersproject/abstract-provider";
 import { createAsyncThunk, createSelector, createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { Contract } from "ethers";
+import { Contract, Signer, ethers } from "ethers";
 
 
 
@@ -76,6 +77,19 @@ export const fetchAllTokens = createAsyncThunk<Collection, Contract>(
         const lastId = Math.max(...tokens.map(x => x.id));
         return { tokens, lastId, totalSupply: count };
     });
+
+export const mintToken = createAsyncThunk<Action, Contract, Signer>(
+    'tokens/mintToken',
+    async (contract:Contract, signer: Signer) => {
+    const connection: Contract = contract.connect(signer);
+    const addr: string = connection.address;
+    const result: TransactionResponse = await contract.payToMint(addr, metadataURI, {
+      value: ethers.utils.parseEther('0.05'),
+    });
+    await result.wait();
+
+});
+
 
 export const collectionComplete = createSelector(
     (state: any): Collection => { return state.collection; },
