@@ -47,6 +47,12 @@ const slice = createSlice({
             console.log("Fetching data >>>>")
             return action.payload;
         });
+        builder.addCase(mintToken.fulfilled, (
+            collection: Collection,
+            action: PayloadAction<Token>
+        ) => {
+            collection.tokens.push(action.payload);
+        });
     }
 });
 
