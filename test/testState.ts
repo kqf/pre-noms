@@ -15,7 +15,7 @@ describe("Check the store logic", function () {
         // @ts-ignore
         await store.dispatch(fetchAllTokens(prenoms));
         // @ts-ignore
-        await store.dispatch(mintToken({contract, signer: owner}));
+        await store.dispatch(mintToken({contract: prenoms, signer: owner}));
         console.log("Done");
     });
 })
