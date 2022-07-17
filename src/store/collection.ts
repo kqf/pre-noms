@@ -52,6 +52,7 @@ const slice = createSlice({
             action: PayloadAction<Token>
         ) => {
             collection.tokens.push(action.payload);
+            console.log("Minted a token");
         });
     }
 });
@@ -66,6 +67,7 @@ export const fetchAllTokens = createAsyncThunk<Collection, Contract>(
     'tokens/fetchTotalSupply',
     async (contract: Contract) => {
         const count: number = await totalSupply(contract);
+        console.log("total supply", count)
         var tokens = Array<Token>();
         for (let i = 0; i < count; i++) {
             const uri: string = await contract.tokenURI(i);
@@ -74,6 +76,7 @@ export const fetchAllTokens = createAsyncThunk<Collection, Contract>(
             if (!isOwned)
                 continue;
 
+            console.log(i);
             tokens.push({
                 id: i,
                 url: uri,
