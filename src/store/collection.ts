@@ -15,7 +15,7 @@ export interface Token {
 interface Collection {
     tokens: Array<Token>,
     lastId: number,
-    maxTokens: number,
+    size: number,
 }
 
 const slice = createSlice({
@@ -23,7 +23,7 @@ const slice = createSlice({
     initialState: {
         tokens: [],
         lastId: 0,
-        maxTokens: 10,
+        size: 10,
     } as Collection,
     reducers: {
         addedToken: (
@@ -82,7 +82,7 @@ export const fetchAllTokens = createAsyncThunk<Collection, Contract>(
         }
 
         const lastId = Math.max(...tokens.map(x => x.id));
-        return { tokens, lastId, maxTokens: count };
+        return { tokens, lastId, size: count };
     });
 
 export const mintToken = createAsyncThunk<Token, { contract: Contract, signer: Signer }, RootState>(
@@ -109,7 +109,7 @@ export const mintToken = createAsyncThunk<Token, { contract: Contract, signer: S
 
 export const collectionComplete = createSelector(
     (state: any): Collection => { return state.collection; },
-    (collection: Collection): boolean => collection.lastId >= collection.maxTokens
+    (collection: Collection): boolean => collection.lastId >= collection.size
 )
 
 export const { addedToken, totalCountChanged } = slice.actions;
