@@ -67,6 +67,7 @@ export const fetchAllTokens = createAsyncThunk<Collection, Contract>(
     'tokens/fetchTotalSupply',
     async (contract: Contract) => {
         const count: number = await totalSupply(contract);
+        const size: number = await contract.maxSize();
         console.log("total supply", count)
         var tokens = Array<Token>();
         for (let i = 0; i < count; i++) {
@@ -82,7 +83,7 @@ export const fetchAllTokens = createAsyncThunk<Collection, Contract>(
         }
 
         const lastId = Math.max(...tokens.map(x => x.id));
-        return { tokens, lastId, size: count };
+        return { tokens, lastId, size: size };
     });
 
 export const mintToken = createAsyncThunk<Token, { contract: Contract, signer: Signer }, RootState>(
