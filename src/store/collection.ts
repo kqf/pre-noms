@@ -54,6 +54,12 @@ const slice = createSlice({
             collection.tokens.push(action.payload);
             console.log("Minted a token");
         });
+        builder.addCase(mintToken.rejected, (
+            collection: Collection,
+            action: any
+        ) => {
+            console.log("There was an error", action);
+        });
     }
 });
 
