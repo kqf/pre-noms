@@ -32,12 +32,6 @@ const slice = createSlice({
         ) => {
             console.log("Do nothing")
         },
-        totalCountChanged: (
-            collection: Collection,
-            action: PayloadAction<Collection>
-        ) => {
-            console.log("Fetching data")
-        },
     },
     extraReducers(builder) {
         builder.addCase(fetchAllTokens.fulfilled, (
