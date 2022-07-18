@@ -26,12 +26,6 @@ const slice = createSlice({
         size: 10,
     } as Collection,
     reducers: {
-        addedToken: (
-            collection: Collection,
-            action: PayloadAction<{ description: string }>
-        ) => {
-            console.log("Do nothing")
-        },
     },
     extraReducers(builder) {
         builder.addCase(fetchAllTokens.fulfilled, (
