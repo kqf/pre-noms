@@ -13,12 +13,15 @@ describe("Check the store logic", function () {
         await prenoms.deployed();
         const store = buildStore()
 
-        await prenoms.donateMint(owner.address, "dummy url");
+        await prenoms.donateMint(owner.address, "dummy url1");
+        await prenoms.donateMint(owner.address, "dummy url2");
+        await prenoms.donateMint(owner.address, "dummy url3");
 
         // @ts-ignore
         await store.dispatch(fetchAllTokens(prenoms));
         // @ts-ignore
         await store.dispatch(mintToken({contract: prenoms, signer: owner}));
+        console.log("Final");
         console.log(store.getState());
         // expect(store.getState().collection.lastId).to.equal(1);
 
