@@ -21,6 +21,7 @@ describe("Check the store logic", function () {
         await store.dispatch(fetchAllTokens(prenoms));
         // @ts-ignore
         await store.dispatch(mintToken({contract: prenoms, signer: owner}));
+
         console.log("Final");
         console.log(store.getState());
         // expect(store.getState().collection.lastId).to.equal(1);

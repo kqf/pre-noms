@@ -63,6 +63,7 @@ export const fetchAllTokens = createAsyncThunk<Collection, Contract>(
         const count: number = await totalSupply(contract);
         const size: number = await contract.maxSize();
         console.log("total supply", count)
+        console.log("size", size)
         var tokens = Array<Token>();
         for (let i = 0; i < count; i++) {
             const uri: string = await contract.tokenURI(i);
@@ -80,10 +81,10 @@ export const fetchAllTokens = createAsyncThunk<Collection, Contract>(
         return { tokens, lastId, size: size };
     });
 
-export const mintToken = createAsyncThunk<Token, { contract: Contract, signer: Signer }, RootState>(
+export const mintToken = createAsyncThunk<Token, { contract: Contract, signer: Signer }, {state: RootState}>(
     'tokens/mintToken',
-    async (credentials: {contract: Contract, signer: Signer}, state: RootState) => {
-        const id: number = state.collection.lastId + 1;
+    async (credentials: {contract: Contract, signer: Signer}, {getState}) => {
+        const id: number = getState().lastId + 1;
         const url = credentials.contract.tokenURI(id);
         const contentId = 'link';
         const metadataURI = `${contentId}/${id}.json`;
@@ -107,5 +108,4 @@ export const collectionComplete = createSelector(
     (collection: Collection): boolean => collection.lastId >= collection.size
 )
 
-export const { addedToken, totalCountChanged } = slice.actions;
 export default slice.reducer;
