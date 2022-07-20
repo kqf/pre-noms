@@ -85,7 +85,6 @@ export const mintToken = createAsyncThunk<Token, { contract: Contract, signer: S
     'tokens/mintToken',
     async (credentials: {contract: Contract, signer: Signer}, {getState}) => {
         const id: number = getState().lastId + 1;
-        const url = credentials.contract.tokenURI(id);
         const contentId = 'link';
         const metadataURI = `${contentId}/${id}.json`;
         const connection: Contract = credentials.contract.connect(credentials.signer);
@@ -97,7 +96,7 @@ export const mintToken = createAsyncThunk<Token, { contract: Contract, signer: S
 
         return {
             id,
-            url: url,
+            url: metadataURI,
             isOwned: true,
         } as Token;
     });
