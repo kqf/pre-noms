@@ -25,7 +25,7 @@ describe("Check the store logic", function () {
 
         console.log("Final");
         console.log(store.getState());
-        // expect(store.getState().collection).to.equal(1);
+        expect(store.getState().tokens.length).to.equal(4);
         console.log("Done");
     });
 })
