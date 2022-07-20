@@ -19,13 +19,13 @@ describe("Check the store logic", function () {
 
         // @ts-ignore
         await store.dispatch(fetchAllTokens(prenoms));
+        expect(store.getState().tokens.length).to.equal(3)
         // @ts-ignore
         await store.dispatch(mintToken({contract: prenoms, signer: owner}));
 
         console.log("Final");
         console.log(store.getState());
-        // expect(store.getState().collection.lastId).to.equal(1);
-
+        // expect(store.getState().collection).to.equal(1);
         console.log("Done");
     });
 })
