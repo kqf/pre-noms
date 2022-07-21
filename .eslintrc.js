@@ -3,22 +3,20 @@ module.exports = {
     browser: false,
     es2021: true,
     mocha: true,
-    node: true,
+    node: true
   },
-  plugins: ["@typescript-eslint"],
+  root: true,
+  plugins: ['@typescript-eslint'],
   extends: [
-    "standard",
-    "plugin:prettier/recommended",
-    "plugin:node/recommended",
+    'eslint:recommended',
+    'plugin:@typescript-eslint/eslint-recommended',
+    'plugin:@typescript-eslint/recommended'
   ],
-  parser: "@typescript-eslint/parser",
+  parser: '@typescript-eslint/parser',
   parserOptions: {
-    ecmaVersion: 12,
+    ecmaVersion: 12
   },
   rules: {
-    "node/no-unsupported-features/es-syntax": [
-      "error",
-      { ignores: ["modules"] },
-    ],
-  },
-};
+    "@typescript-eslint/no-explicit-any": ["off"],
+  }
+}
