@@ -11,7 +11,7 @@ describe("Check the store logic", function () {
         const Prenoms = await ethers.getContractFactory("Prenoms");
         const prenoms = await Prenoms.deploy();
         await prenoms.deployed();
-        const store = buildStore()
+        const store = buildStore();
 
         await prenoms.donateMint(owner.address, "dummy url1");
         await prenoms.donateMint(owner.address, "dummy url2");
@@ -19,7 +19,7 @@ describe("Check the store logic", function () {
 
         // @ts-ignore
         await store.dispatch(fetchAllTokens(prenoms));
-        expect(store.getState().tokens.length).to.equal(3)
+        expect(store.getState().tokens.length).to.equal(3);
         // @ts-ignore
         await store.dispatch(mintToken({contract: prenoms, signer: owner}));
 
@@ -28,4 +28,4 @@ describe("Check the store logic", function () {
         expect(store.getState().tokens.length).to.equal(4);
         console.log("Done");
     });
-})
+});

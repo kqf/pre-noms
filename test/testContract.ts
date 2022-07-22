@@ -26,7 +26,7 @@ describe("Minter", function () {
     })).to.be.revertedWith('Already minted!');
 
     // We have created exactly 3 tokens so far
-    expect(await prenoms.totalSupply()).to.equal(3)
+    expect(await prenoms.totalSupply()).to.equal(3);
 
   });
 });
