@@ -7,6 +7,6 @@ export const buildStore: () => Store = () => configureStore({
 
 
 
-const store: Store = buildStore()
+const store: Store = buildStore();
 export type RootState = ReturnType<typeof store.getState>;
 export default store;
