@@ -32,7 +32,7 @@ const slice = createSlice({
             collection: Collection,
             action: PayloadAction<Collection>
         ) => {
-            console.log("Fetching data >>>>")
+            console.log("Fetching data >>>>");
             return action.payload;
         });
         builder.addCase(mintToken.fulfilled, (
@@ -54,17 +54,17 @@ const slice = createSlice({
 const totalSupply = async (contract: Contract) => {
     const countRaw: number = parseInt(await contract.totalSupply());
     const count: number = isNaN(countRaw) ? 0 : countRaw;
-    return count
-}
+    return count;
+};
 
 export const fetchAllTokens = createAsyncThunk<Collection, Contract>(
     'tokens/fetchTotalSupply',
     async (contract: Contract) => {
         const count: number = await totalSupply(contract);
         const size: number = await contract.maxSize().value;
-        console.log("total supply", count)
-        console.log("size", size)
-        const tokens = Array<Token>()
+        console.log("total supply", count);
+        console.log("size", size);
+        const tokens = Array<Token>();
         for (let i = 0; i < count; i++) {
             const uri: string = await contract.tokenURI(i);
             const isOwned: boolean = await contract.isOwned(uri);
@@ -105,6 +105,6 @@ export const mintToken = createAsyncThunk<Token, { contract: Contract, signer: S
 export const collectionComplete = createSelector(
     (state: any): Collection => { return state.collection; },
     (collection: Collection): boolean => collection.lastId >= collection.size
-)
+);
 
 export default slice.reducer;
