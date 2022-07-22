@@ -64,7 +64,7 @@ export const fetchAllTokens = createAsyncThunk<Collection, Contract>(
         const size: number = await contract.maxSize().value;
         console.log("total supply", count)
         console.log("size", size)
-        var tokens = Array<Token>()
+        const tokens = Array<Token>()
         for (let i = 0; i < count; i++) {
             const uri: string = await contract.tokenURI(i);
             const isOwned: boolean = await contract.isOwned(uri);
