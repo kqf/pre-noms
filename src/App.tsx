@@ -6,7 +6,7 @@ function App() {
   if (window.ethereum) {
     return <Home />;
   } else {
-    return <Install />
+    return <Install />;
   }
 }
 
