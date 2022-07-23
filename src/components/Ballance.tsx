@@ -27,6 +27,6 @@ function WalletBalance() {
             </div>
         </div>
     );
-};
+}
 
 export default WalletBalance;
