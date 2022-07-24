@@ -18,6 +18,7 @@ module.exports = {
     },
     rules: {
         "@typescript-eslint/no-explicit-any": ["off"],
+        "@typescript-eslint/ban-ts-comment": ["off"],
         "semi": ["error", "always"],
         "indent": ["error", 4],
     }
