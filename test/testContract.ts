@@ -1,9 +1,11 @@
+import { SignerWithAddress } from "@nomiclabs/hardhat-ethers/signers";
 import { expect } from "chai";
+import { Contract } from "ethers";
 import { ethers } from "hardhat";
 
 describe("Minter", function () {
-    let owner: any;
-    let prenoms: any;
+    let owner: SignerWithAddress;
+    let prenoms: Contract;
 
     beforeEach(async () => {
         [owner] = await ethers.getSigners();
