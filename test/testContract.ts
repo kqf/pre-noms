@@ -2,14 +2,18 @@ import { expect } from "chai";
 import { ethers } from "hardhat";
 
 describe("Minter", function () {
+    let owner: any;
+    let prenoms: any;
+
+    beforeEach(async () => {
+        [owner] = await ethers.getSigners();
+        const Prenoms = await ethers.getContractFactory("Prenoms");
+        prenoms = await Prenoms.deploy();
+        await prenoms.deployed();
+    });
+
     it("Should mint a token with a given URI", async function () {
     // Create a phony account
-        const [owner] = await ethers.getSigners();
-
-        const Prenoms = await ethers.getContractFactory("Prenoms");
-        const prenoms = await Prenoms.deploy();
-        await prenoms.deployed();
-
         await prenoms.donateMint(owner.address, "Hello, world!");
         expect(await prenoms.tokenURI(0)).to.equal("ipfs://Hello, world!");
 
